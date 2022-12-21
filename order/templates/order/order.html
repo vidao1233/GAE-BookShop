@@ -1,0 +1,56 @@
+{% extends 'store/base.html' %}
+{% load static %}
+{% load customfunction %}
+{% load crispy_forms_tags %}
+<!--as_crispy_field : đặt vào form có sẵn cố định trong bootstrap4-->
+{% block container %}
+			<div class="row">
+			    <div class="col-md-8 order-md-1 cart_info">
+			        <h4 class="mb-3 mt-3">Địa chỉ nhận hàng</h4>
+					{% if messages %}
+					<div class="messages">
+					    {% for message in messages %}
+					    <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+					    {% endfor %}
+					</div>
+					{% endif %}
+			        <form action="" method="POST" class="needs-validation" novalidate="">
+			        	{% csrf_token %}
+			            <div class="row">
+			                <div class="col-md-6 mb-3">
+			                    {{ form.name|as_crispy_field }}
+			                </div>
+			                <div class="col-md-6 mb-3">
+			                  
+			                   	{{ form.email|as_crispy_field }}
+			                </div>
+			            </div>
+	           			<div class="mb-3">
+			                {{ form.phone|as_crispy_field }}
+			            </div>
+
+			            <div class="mb-3">
+			                {{ form.address|as_crispy_field }}
+			            </div>
+						<div class="mb-3">
+			                {{ form.note|as_crispy_field }}
+			            </div>
+			            <hr class="mb-4">
+			            <div class="d-block my-3">
+							{{ form.payment_method|as_crispy_field }}
+			            </div>
+			            <hr class="mb-4">
+			            <button class="btn btn-warning btn-block" type="submit" style="margin-bottom: 100px">Tiếp tục</button>
+			        </form>
+			    </div>
+			    <div class="col-md-4 order-md-2 mb-4">
+					<ul class="list-group">
+						<li class="list-group-item d-flex justify-content-between align-items-center"><h4>ĐƠN HÀNG</h4></li>
+						<li class="list-group-item d-flex justify-content-between align-items-center">Số lượng<span>{{ cart|length }}</span></li>
+						<li class="list-group-item d-flex justify-content-between align-items-center">Tiền sách<span>{{ cart.get_total_price }} VNĐ</span></li>
+						<li class="list-group-item d-flex justify-content-between align-items-center">Phí ship<span>{{ cost|shipping }} VNĐ</span></li>
+						<li class="list-group-item d-flex justify-content-between align-items-center">Tổng<span>{{ cart.get_total_price|payabletotal}} VNĐ</span></li>
+					</ul>
+			    </div>
+			</div>
+		{% endblock %}

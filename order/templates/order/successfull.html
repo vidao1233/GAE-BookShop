@@ -1,0 +1,23 @@
+{% extends 'store/base.html' %}
+{% load static %}
+
+{% block container %}
+        <div class="row">
+            <div class="col-md-12 cart_info">
+                    <div class="successful-order text-center">
+                        <i class="fa fa-check"></i>
+                        <h3 class="page-header">Cảm ơn quý khách!</h3>
+                    </div>
+                    <div class="ordered-info">
+                        <h5>Đơn hàng: <span>#{{ order.id }}</span></h5>
+                        <h5>Số lượng: <span>{{ order.totalbook }}</span></h5>
+                        <h5>Khách hàng: <span>{{ order.name }}</span></h5>
+                        <h5>Số ĐT: <span>{{ order.phone }}</span></h5>
+                        <h5>Email: <span>{{ order.email }}</span></h5>
+                        <h5>Phương thức thanh toán: <span>{{ order.payment_method }}</span></h5>
+                        <h5>Địa chỉ ship: <span>{{ order.address }}</span></h5>
+                        <h5>Ghi chú: <span>{{ order.note }}</span></h5>
+                    </div>
+            </div>
+        </div>
+{% endblock %}

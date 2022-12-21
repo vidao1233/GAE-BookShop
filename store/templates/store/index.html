@@ -1,0 +1,84 @@
+<!--GIAO DIỆN TRANG CHỦ-->
+{% extends 'store/base.html' %}
+{% load static %}
+{% load customfunction %}
+{% block headermenu %}
+<div class="header-bottom ">
+{% endblock %}
+
+			{% block container %}
+			<div class="row">
+				<div class="col-sm-12">
+					<div style="margin:0 auto;">
+						<ul id="demo3">
+							{% for sld in slide %}
+                            <!--Hiển thị các ảnh từ model Slide với rộng 900 và cao 300-->
+							<li><img src="{{ sld.slideimg.url }}" alt="" width = "900" height="300"/></li>
+							{% endfor %}
+						</ul>
+					</div>
+				</div>
+				
+				<p><div class="col-sm-12 header-bottom ">
+					<div class="titleheader">
+						<h3 class="h2header text-center">Sách mới phát hành</h3>
+						<h5><a class="pull-right mr-2" href="#">Xem tất cả</a></h5>
+					</div>
+					<div class="row text-center">
+                        <!--Lấy danh sách các sách mới update -->
+                        <!--"sachmois":sachmoitao (views.py)-->
+						{% for item in newbooks %}
+						{% if item.id > 17 %}
+						<p><div class="book-wrapper text-center">
+							<div class="coverpage">
+                                <!--ĐƯờng dẫn tới sách khi nhấp vào ảnh hoặc tên sách-->
+                                <!--urls.py-->
+								<a href="{% url 'store:book' id=item.id %}"><img src="{{ item.coverpage.url }}"/></a>
+							</div>
+							<a href="{% url 'store:book' id=item.id %}">{{ item.name|text_short }}</a><!--trong file chucnang.py-->
+							<a href="{% url 'store:writer' id=item.writer.id %}">Tác giả : {{ item.writer }}</a>
+							<div class="rating">
+                                <!--averagerating : chucnang.py-->
+								{{ item.totalrating|averagerating:item.totalreview }}
+							</div>
+							<p>Giá : {{ item.price }} VNĐ</p>
+							<button class="btn btn-warning" id="addTocart" data-book-id="{{ item.id }}">
+									<i class="fa fa-shopping-cart	"></i>Thêm vào giỏ hàng
+								</button>
+						</div></p>
+						{%endif%}
+						{% endfor %}
+					</div>
+				</div><p>
+
+				<div class="col-sm-12 header-bottom ">
+					<div class="titleheader">
+						<h3 class="text-center">Top sách đề xuất</h3>
+						<h5><a class="pull-right mr-2" href="#">Xem tất cả</a></h5>
+					</div>
+					<div class="row">
+						{% for p in newbooks %}
+                        <!-- Lấy các sách có đánh giá >=4 sao và id <12 -->
+						{% if p.totalrating >= 5%}
+						{% if p.id < 12%}
+						<div class="book-wrapper text-center">
+							<div class="coverpage">
+								<img src="{{ p.coverpage.url }}"/>
+							</div>
+							<a href="{% url 'store:book' id=p.id %}">{{ p.name|text_short }}</a>
+							<a href="{% url 'store:writer'  id=p.writer.id %}"> Tác giả : {{ p.writer }}</a>
+							<div class="rating">
+								{{ p.totalrating|averagerating:p.totalreview }}
+							</div>
+							<p>Giá : {{ p.price }} VNĐ</p>
+							<button class="btn btn-warning" id="addTocart" data-book-id="{{ p.id }}">
+									<i class="fa fa-shopping-cart"></i>Thêm vào giỏ hàng
+								</button>
+						</div>
+						{% endif %}
+						{% endif%}
+						{% endfor %}
+					</div>
+				</div>
+			</div> 
+			{% endblock %}

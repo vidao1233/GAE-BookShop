@@ -1,0 +1,6 @@
+application: bookshop
+version: 1
+api_version: 1
+handlers:
+- url: .*
+  script: manager.py

@@ -1,0 +1,43 @@
+{% extends 'store/base.html' %}
+{% load static %}
+{% load customfunction %}
+{% block container %}
+			<div class="row">
+				<div class="col-sm-8">
+					<div class="cart_info">
+					    <table class="table table-hover">
+					        <thead class="text-center">
+					            <tr>
+					                <th scope="col">Sản phẩm</th>
+					                <th scope="col" style="width: 250px">Tên sản phẩm</th>
+					                <th scope="col">Giá</th>
+					                <th scope="col" >Số lượng</th>
+					                <th scope="col">Tổng tiền</th>
+					            </tr>
+					        </thead>
+					        <tbody class="text-center">
+					        	{% for item in o_item %}
+					            <tr>
+					                <td class="cart_coverpage"><a href=""><img src="{{ item.book.coverpage.url}}"></a></td>
+					                <td><a href="{% url 'store:book' id=item.book.id %}">{{ item.book.name }}</a></td>
+					                <td class="cart_quantity">{{ item.book.price }} VNĐ</td>
+					                <td class="cart_quantity">{{ item.quantity }}</td>
+					                <td>{{ item.book.price|subtotal:item.quantity }} VNĐ</td>
+					            </tr>
+					            {% endfor %}
+					        </tbody>
+					    </table>
+					</div>
+				</div>
+				<div class="col-sm-4">
+					<ul class="list-group">
+						<li class="list-group-item d-flex justify-content-between align-items-center"><h4>Đơn hàng</h4></li>
+						<li class="list-group-item d-flex justify-content-between align-items-center">Số lượng<span>{{ o_summary.totalbook }}</span></li>
+						<li class="list-group-item d-flex justify-content-between align-items-center">Tiền sách<span>{{ o_summary.payable }} VNĐ</span></li>
+						<li class="list-group-item d-flex justify-content-between align-items-center">Phí ship<span>{{ 100 }} VND</span></li>
+						<li class="list-group-item d-flex justify-content-between align-items-center">Tổng<span>{{ o_summary.payable|add:100 }} VNĐ</span></li>
+						<li class="list-group-item d-flex justify-content-between align-items-center">Dữ liệu<span>{{ o_summary.created }}</span></li>
+					</ul>
+				</div>
+			</div>
+		{% endblock %}

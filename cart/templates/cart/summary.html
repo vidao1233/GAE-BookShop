@@ -1,0 +1,8 @@
+{% load customfunction %}
+<ul class="list-group">
+	<li class="list-group-item d-flex justify-content-between align-items-center"><h4>Tóm tắt đơn hàng</h4></li>
+	<li class="list-group-item d-flex justify-content-between align-items-center">Số lượng<span>{{ cart|length }}</span></li>
+	<li class="list-group-item d-flex justify-content-between align-items-center">Giá<span>{{ cart.get_total_price }} VNĐ</span></li>
+	<li class="list-group-item d-flex justify-content-between align-items-center">Phí ship<span>{{ cost|shipping }} VNĐ</span></li>
+	<li class="list-group-item d-flex justify-content-between align-items-center">Tổng<span>{{ cart.get_total_price|payabletotal}} VNĐ</span></li>
+</ul>	

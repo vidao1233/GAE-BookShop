@@ -1,0 +1,8 @@
+<!-- SIDEBAR -HIỂN THỊ DANH MỤC SẢN PHẨM-->
+<ul class="list-group list-group-flush ">
+	<li class="list-group-item "><h5>Danh mục sách</h5></li>
+	<!-- Duyệt model SanPham -->
+	{% for p in cat %}
+	<li class="list-group-item"><a href="{% url 'store:category' id=p.id %}">{{p.name}}</a></li>
+	{% endfor %}			
+</ul>
